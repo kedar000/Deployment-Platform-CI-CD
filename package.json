@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "backend/*",
-    "shared/*"
+    "shared"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel",
