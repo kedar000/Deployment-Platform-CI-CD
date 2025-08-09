@@ -1,0 +1,20 @@
+{
+  "name": "deployment-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "backend/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "bootstrap": "npm install"
+  },
+  "devDependencies": {
+    "turbo": "^1.8.4",
+    "typescript": "^5.0.0"
+  }
+}
