@@ -12,4 +12,7 @@ app.use("/api", routes);
 app.get("/", (_req, res) => res.send("API Server OK"));
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`API Server listening on ${PORT}`));
+const url = `http://localhost:${PORT}`
+app.listen(PORT, () => console.log(`API Server listening on ${PORT} , url : ${url}`));
+
+// app.listen(PORT, () => console.log(`Webhook listener on ${PORT} , url : ${url}`));

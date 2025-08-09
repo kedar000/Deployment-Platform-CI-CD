@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 
+const PORT = 4100
 const app = express();
 app.use(bodyParser.json());
 
@@ -10,4 +11,5 @@ app.post("/webhook", (req, res) => {
   res.status(200).send("received");
 });
 
-app.listen(4100, () => console.log("Webhook listener on 4100"));
+const url = `http://localhost:${PORT}`
+app.listen(PORT, () => console.log(`Webhook listener on ${PORT} , url : ${url}`));
