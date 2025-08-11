@@ -1,3 +1,5 @@
 export * from "./utils/api.utils"
 export * from "./utils/asyncHandler.utils"
 export * from "./middlewares/error.middleware"
+export * from "./Errors/ApiError"
+export * from "./utils/logger.utils"

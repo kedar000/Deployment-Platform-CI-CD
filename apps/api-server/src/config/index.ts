@@ -9,7 +9,13 @@ const envSchema = z.object({
            .default("4000")
            .transform(Number)
            .refine((val)=>!isNaN(val),{message:"PORT must be a number"}),
-    BASE_URL : z.string()     
+    BASE_URL : z.string()  ,
+    REDIRECT_URL : z.string(),
+    CLIENT_ID : z.string(),
+    CLIENT_SECRET : z.string(),
+    GITHUB_SCOPES : z.string()
+
+
 })
 const env = envSchema.safeParse(process.env);
 
@@ -20,5 +26,9 @@ if (!env.success) {
 
 export const config = {
   port: env.data.PORT,
-  baseUrl:env.data.BASE_URL
+  baseUrl:env.data.BASE_URL,
+  githubRedirectURL:env.data.REDIRECT_URL,
+  githubClientId:env.data.CLIENT_ID,
+  githubClientSecret:env.data.CLIENT_SECRET,
+  githubScopes:env.data.GITHUB_SCOPES
 };
