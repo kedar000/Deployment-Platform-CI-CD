@@ -32,20 +32,20 @@ export const googleCallback = asyncHandler(async(req:Request,res:Response)=>{
 
     const {access_token,refresh_token,id_token} = token.data;
     const decodedUser = await verifyGoogleIdToken(id_token)
-    // const user = await prisma.user.findUnique({
-    //   where:{
-    //     googleId:decodedUser.sub
-    //   }
-    // })
-    // if(!user){
-    //   const newUser = await prisma.user.create({
-    //     data:{
-    //       name:decodedUser.name,
-    //       email:decodedUser.email,
-    //       authProvider:AuthProvider.google
-    //     }
-    //   })
-    // }
+    const user = await prisma.user.findUnique({
+      where:{
+        googleId:decodedUser.sub
+      }
+    })
+    if(!user){
+      const newUser = await prisma.user.create({
+        data:{
+          name:decodedUser.name,
+          email:decodedUser.email,
+          authProvider:AuthProvider.google
+        }
+      })
+    }
     sendSuccess<DecodedGoogleUser>(res,decodedUser,"google auth success",200);
 })
 
