@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://deployment_user:deployment_password@localhost:2049/deployment_platform_db"
+}
+
+model User {
+  id             String   @id @default(cuid())
+  githubUsername String
+  githubToken    String
+  repos          Repository[]
+  createdAt      DateTime @default(now())
+}
+
+model Repository {
+  id         String @id @default(cuid())
+  name       String
+  fullName   String
+  webhookId  String
+  user       User   @relation(fields: [userId], references: [id])
+  userId     String
+}
