@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ApiError } from "../Errors/ApiError";
 import { sendError } from "../utils/api.utils";
-
+import { logger } from "../utils/logger.utils"
 export function errorHandler(
   err: unknown,
   req: Request,
@@ -13,7 +13,6 @@ export function errorHandler(
     return sendError(res, err.code, err.statusCode, err.details);
   }
 
-  console.error(err); // Log unexpected errors
-
+   logger.error(err);
   return sendError(res, "INTERNAL_SERVER_ERROR", 500);
 }
