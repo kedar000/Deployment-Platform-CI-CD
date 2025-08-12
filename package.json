@@ -4,13 +4,17 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "shared"
+    "shared/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "bootstrap": "npm install"
+    "bootstrap": "npm install",
+    "db:generate": "npm --workspace @shared/db run db:generate",
+    "db:migrate": "npm --workspace @shared/db run db:migrate",
+    "db:deploy": "npm --workspace @shared/db run db:deploy",
+    "db:studio": "npm --workspace @shared/db run db:studio"
   },
   "devDependencies": {
     "turbo": "^1.8.4",

@@ -1,3 +1,4 @@
+
 import { PrismaClient  , AuthProvider} from "@prisma/client";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };

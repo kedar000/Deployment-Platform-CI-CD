@@ -6,10 +6,12 @@ import { ApiError } from "@myorg/shared/Errors/ApiError";
 import { loggerStream } from "@myorg/shared";
 import cors from "cors"
 import morgan from "morgan"
+
 const app : Application  = express();
 app.use(cors({
     origin:"*"
 }));
+
 app.use(morgan("combined",{stream:loggerStream}));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,4 +21,3 @@ app.use("/",(req:Request,res:Response)=>{
 })
 app.use(errorHandler);
 export default app;
-
