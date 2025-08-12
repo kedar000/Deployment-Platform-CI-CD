@@ -5,6 +5,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "db:generate": "prisma generate --schema=db/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=db/prisma/schema.prisma",
+    "db:deploy": "prisma migrate deploy --schema=db/prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=db/prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "prisma": "^6.13.0",
+    "winston": "^3.17.0"
   }
 }

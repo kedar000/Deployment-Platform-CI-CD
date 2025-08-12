@@ -6,6 +6,8 @@ import { ApiError } from "@myorg/shared/Errors/ApiError";
 // import { loggerStream } from "@myorg/shared";
 import cors from "cors"
 import morgan from "morgan"
+
+
 const app : Application  = express();
 app.use(cors({
     origin:"*"
