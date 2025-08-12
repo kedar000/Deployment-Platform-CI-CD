@@ -1,26 +1,64 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://deployment_user:deployment_password@localhost:2049/deployment_platform_db"
+  url      = env("DATABASE_URL")
 }
+
 
 model User {
-  id             String   @id @default(cuid())
-  githubUsername String
-  githubToken    String
-  repos          Repository[]
-  createdAt      DateTime @default(now())
+  id            String          @id @default(uuid())
+  email         String          @unique
+  name          String?
+  passwordHash  String?
+  authProvider  AuthProvider    @default(local)
+  googleId      String?         @unique
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  githubAccounts GithubAccount[]
 }
 
+model GithubAccount {
+  id              String   @id @default(uuid())
+  userId          String
+  githubUsername  String
+  githubId        BigInt   @unique
+  accessToken     String
+  refreshToken    String?
+  connectedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  reposistory     Repository[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+enum AuthProvider {
+  local
+  google
+}
 model Repository {
-  id         String @id @default(cuid())
-  name       String
-  fullName   String
-  webhookId  String
-  user       User   @relation(fields: [userId], references: [id])
-  userId     String
+  id             String   @id @default(uuid())
+  githubAccountId String
+  providerRepoId BigInt   // GitHub's internal repo ID
+  name           String
+  fullName       String   // e.g. "owner/repo"
+  url            String
+  defaultBranch  String
+  visibility     String   // public | private
+
+  webhookId      String?  // returned by GitHub when webhook created
+  webhookSecret  String?  // used for signature verification
+
+  githubAccount  GithubAccount @relation(fields: [githubAccountId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
