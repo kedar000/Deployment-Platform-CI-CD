@@ -30,5 +30,6 @@ export const githubToken = asyncHandler(async(req:Request,res:Response)=>{
           grant_type:"authorization_code",
           redirect_uri:config.githubRedirectURL
     });
+    
     sendSuccess(res,token.data,"github auth success",200);
 })
