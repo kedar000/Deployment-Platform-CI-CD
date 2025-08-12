@@ -1,0 +1,15 @@
+{
+  "name": "@shared/db",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "db:migrate": "prisma migrate dev --schema=prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0"
+  }
+}
